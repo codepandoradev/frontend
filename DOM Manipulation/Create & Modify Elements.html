@@ -6,33 +6,45 @@
 
   for (let i = 0; i < users.length; i++) {
     const user = users[i]
+    const tableRow = createTableRow()
 
-    const trElement = document.createElement("tr")
-    trElement.classList.add("users__info")
+    tableRow.append(
+      createTableColumn(user.id),
+      createTableColumn(user.name),
+      createTableColumn(user.dd),
+      createTableColumn(createAnchorElement({
+        text: "Click",
+        href: "https://google.com/",
+        dataset: { fancybox: "" },
+        onclick: () => alert(`ID: ${user.id}, Name: ${user.name}`) // Arrow Function + Template String
+      }))
+    )
 
-    appendTableColumn(trElement, user.id)
-    appendTableColumn(trElement, user.name)
-    appendTableColumn(trElement, user.dd)
-
-    const anchorElement = document.createElement("a")
-    anchorElement.href = "//google.com"
-    anchorElement.dataset.fancybox = ""
-    anchorElement.textContent = "Button"
-    anchorElement.addEventListener("click", () => {
-      alert(user.name)
-      window.close()
-    })
-    appendTableColumn(trElement, anchorElement)
-
-
-    document.querySelector("table").append(trElement)
+    document.querySelector("table").append(tableRow)
   }
 
-  function appendTableColumn(parentElement, child) {
+  function createTableRow() {
+    const trElement = document.createElement("tr") // Create element
+    trElement.classList.add("users__info") // Add class to element
+    // ... Other manipulations ...
+    return trElement // return element from function
+  }
+
+  function createTableColumn(child) {
     const tdElement = document.createElement("td")
     tdElement.classList.add("users__info__item")
     tdElement.append(child)
 
-    parentElement.append(tdElement)
+    return tdElement
+  }
+
+  function createAnchorElement({ text, href, dataset, onclick }) { // Object Destructuring
+    const anchorElement = document.createElement("a")
+    anchorElement.href = href
+    anchorElement.dataset = dataset
+    anchorElement.textContent = text
+    anchorElement.addEventListener("click", onclick)
+
+    return anchorElement
   }
 </script>
