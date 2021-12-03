@@ -1,0 +1,38 @@
+<body>
+  <table></table>
+</body>
+<script>
+  const users = [{ id: 0, name: "alex", dd: "da" }, { id: 1, name: "alex2", dd: "da" }, { id: 2, name: "alex3", dd: "net" }]
+
+  for (let i = 0; i < users.length; i++) {
+    const user = users[i]
+
+    const trElement = document.createElement("tr")
+    trElement.classList.add("users__info")
+
+    appendTableColumn(trElement, user.id)
+    appendTableColumn(trElement, user.name)
+    appendTableColumn(trElement, user.dd)
+
+    const anchorElement = document.createElement("a")
+    anchorElement.href = "//google.com"
+    anchorElement.dataset.fancybox = ""
+    anchorElement.textContent = "Button"
+    anchorElement.addEventListener("click", () => {
+      alert(user.name)
+      window.close()
+    })
+    appendTableColumn(trElement, anchorElement)
+
+
+    document.querySelector("table").append(trElement)
+  }
+
+  function appendTableColumn(parentElement, child) {
+    const tdElement = document.createElement("td")
+    tdElement.classList.add("users__info__item")
+    tdElement.append(child)
+
+    parentElement.append(tdElement)
+  }
+</script>
