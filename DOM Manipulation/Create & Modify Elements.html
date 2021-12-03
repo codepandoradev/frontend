@@ -41,9 +41,12 @@
   function createAnchorElement({ text, href, dataset, onclick }) { // Object Destructuring
     const anchorElement = document.createElement("a")
     anchorElement.href = href
-    anchorElement.dataset = dataset
     anchorElement.textContent = text
     anchorElement.addEventListener("click", onclick)
+
+    for (const key in dataset) {
+      anchorElement.dataset[key] = dataset[key]
+    }
 
     return anchorElement
   }
